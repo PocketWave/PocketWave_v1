@@ -9,7 +9,7 @@ class Window(tk.Toplevel):
     def __init__(self,Title,Size): 
         super().__init__()
         self.wm_title('')
-        self.iconbitmap("Imagens/Icon.ico")
+        self.iconbitmap("Images/Icon.ico")
         self.resizable(True,True)
         self.title(Title)
         self.geometry(Size)
