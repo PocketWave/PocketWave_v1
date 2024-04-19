@@ -6,7 +6,7 @@ class Root(tk.Tk):
     def __init__(self):
         super().__init__()
         self.wm_title('')
-        self.iconbitmap("Imagens/Icon.ico")
+        self.iconbitmap("Images/Icon.ico")
         self.resizable(False,False)
         self.Menu()
         self.centrar()
