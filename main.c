@@ -60,18 +60,20 @@ static void MX_USART2_UART_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
-#define selectpinsPort GPIOA
+#define selectpinPort GPIOA
 
-const int selectPins[3] = {S0_ Pin, S1_Pin, S2_Pin);
+const int selectPins[3] = {S0_Pin, S1_Pin, S2_Pin};
+
+// Esta secção coloca S0, S1 e S2 de acordo com
 
 void selectMuxPin(int pin)
 {
 	for(int i = 0; i<3 ; i++)
 	{
 		if(pin & (1<<i))
-			HAL_GPIO_WritePin(selectpinsPort, selectPins[i], GPIO_PIN_SET);
+			HAL_GPIO_WritePin(selectpinPort, selectPins[i], GPIO_PIN_SET);
 		else
-			HAL_GPIO_WritePin(selectpinsPort, selectPins[i], GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(selectpinPort, selectPins[i], GPIO_PIN_RESET);
 	}
 }
 
@@ -112,13 +114,13 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
-HAL_GPIO_WritePin(GPIOA, EN_Pin, GPIO_PIN_SET), // pull the EN pin high
+  	HAL_GPIO_WritePin(GPIOA, EN_Pin, GPIO_PIN_SET); // pull the EN pin high
 
 // set all the select pins
-for (int i=0, i<3, i++)
-{
-	HAL_GPIO_WritePin(selectpinsPort, selectPins[i], GPIO_PIN_SET);
-}
+  	for (int i=0; i<3; i++)
+  	{
+  		HAL_GPIO_WritePin(selectpinPort, selectPins[i], GPIO_PIN_SET);
+  	}
 
 
   /* Infinite loop */
@@ -128,12 +130,12 @@ for (int i=0, i<3, i++)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	for(int i=0, i<8, i++)
+	for(int i=0; i<8; i++)
 	{
 		selectMuxPin(i); // select one mux pin at a time
 		HAL_ADC_Start(&hadc1); // start the ADC
 		HAL_ADC_PollForConversion(&hadc1, 100); // poll for conversion
-		value[i] = HAL_GetValue(&hadc1); //
+		value[i] = HAL_ADC_GetValue(&hadc1); //
 		HAL_ADC_Stop(&hadc1);
 	}
 
